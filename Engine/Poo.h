@@ -6,9 +6,13 @@
 class Poo
 {
 public:
+    Poo(int x, int y, int vx, int vy);
     void Update();
     void Processconsumption( const Dude &dude);//We are not changing the values inside the dude class, but we are changing the members of the poo class.
     void Draw(Graphics &gfx) const; //We are chainging gfx, but we are not changing the members of the poo class. 
+    bool IsEaten() const;//getter
+
+private:
     int x;
     int y;
     int vx;

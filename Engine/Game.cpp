@@ -22,16 +22,25 @@
 #include "Game.h"
 #include <random>
 
-Game::Game( MainWindow& wnd )
-	:
-	wnd( wnd ),
-	gfx( wnd )
-{
-    std::random_device rd;
+Game::Game(MainWindow& wnd) // constructor for Game class
+    ://class initializer list
+    wnd(wnd), /*The order of initialization doesn't have to do with the order in the class initializer.
+    gfx(wnd),   It has to do with the order of declaration in the variable list of Game.h*/
+    //poo0(100, 100, 1, 1)// local member variables are not accessible to this initializer list.
+    gfx(wnd),
+    rng(rd()),
+    xDist(0, 770),
+    yDist(0, 570),
+    poo0(xDist(rng), yDist(rng), 1, 1),
+    poo1(xDist(rng), yDist(rng), -1, 1),
+    poo2(xDist(rng), yDist(rng), 1, -1)
+{// body of the constructor
+    /*std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_int_distribution<int> xDist( 0, 770 );
-    std::uniform_int_distribution<int> yDist( 0, 570);
-    poo0.x = xDist(rng);
+    std::uniform_int_distribution<int> yDist( 0, 570); // from here to above four lines, they are just local variables for this body.
+    *///Thus, we are moving them to the game class.
+    /*poo0.x = xDist(rng);
     poo0.y = yDist(rng);
     poo1.x = xDist(rng);
     poo1.y = yDist(rng);
@@ -43,7 +52,7 @@ Game::Game( MainWindow& wnd )
     poo1.vx = -1;
     poo1.vy = 1;
     poo2.vx = 1;
-    poo2.vy = -1;
+    poo2.vy = -1;*/
 }
 
 void Game::Go()
@@ -29006,20 +29015,20 @@ void Game::ComposeFrame()
     }
     else
     {
-        if (poo0.isEaten && poo1.isEaten && poo2.isEaten)
+        if (poo0.IsEaten() && poo1.IsEaten() && poo2.IsEaten())
         {
             DrawGameOver(358, 268);
         }
         DrawFace(dude.x, dude.y);
-        if (!poo0.isEaten)
+        if (!poo0.IsEaten())
         {
             poo0.Draw(gfx);
         }
-        if (!poo1.isEaten)
+        if (!poo1.IsEaten())
         {
             poo1.Draw(gfx);
         }
-        if (!poo2.isEaten)
+        if (!poo2.IsEaten())
         {
             poo2.Draw(gfx);
         }
