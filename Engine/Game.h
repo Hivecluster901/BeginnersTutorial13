@@ -53,15 +53,8 @@ private:
     std::uniform_int_distribution<int> xDist;
     std::uniform_int_distribution<int> yDist;
     Dude dude;
-    Poo poo0;
-    Poo poo1;
-    Poo poo2;
-    Poo poo3;
-    Poo poo4;
-    Poo poo5;
-    Poo poo6;
-    Poo poo7;
-    Poo poo8;
+    static constexpr int nPoo = 10;
+    Poo poos[nPoo];
     bool isStarted = false;
     /*std::random_device rd; The random number generator should be declared before the poo objects.
     std::mt19937 rng;

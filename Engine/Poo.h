@@ -6,7 +6,8 @@
 class Poo
 {
 public:
-    Poo(int x, int y, int vx, int vy);
+    //Poo(int x, int y, int vx, int vy);
+    void Init(int x, int y, int vx, int vy); //Setters, Anyone can call this anytime. Encapsulation?
     void Update();
     void Processconsumption( const Dude &dude);//We are not changing the values inside the dude class, but we are changing the members of the poo class.
     void Draw(Graphics &gfx) const; //We are chainging gfx, but we are not changing the members of the poo class. 
@@ -21,4 +22,5 @@ private:
                                     //whilee we cannot change constexpr variable no matter how many times the function is called.
     static constexpr int height = 24;// static members are shared all over with every object; It can be accessed with the expression: Poo::width
     bool isEaten = false;
+    bool initialized = false;
 };

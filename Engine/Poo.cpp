@@ -1,18 +1,30 @@
 #include "Poo.h"
 #include "Graphics.h"
+#include <assert.h>
 
 
-Poo::Poo(int x, int y, int vx, int vy)
+/*Poo::Poo(int x, int y, int vx, int vy)
 {
     this->x = x;
     this->y = y;
     this->vx = vx;
     this->vy = vy;
 
+}*/
+
+void Poo::Init(int x, int y, int vx, int vy)
+{
+    assert(initialized == false);
+    this->x = x;
+    this->y = y;
+    this->vx = vx;
+    this->vy = vy;
+    initialized = true;
 }
 
 void Poo::Update()
 {
+    assert(initialized == true);
     x += vx;
     y += vy;
     const int right = x + width;
@@ -42,6 +54,7 @@ void Poo::Update()
 
 void Poo::Processconsumption(const Dude &dude)//Const correctness(we are only reading the dude not chaing it.)
 {
+    assert(initialized == true);
     const int right0 = dude.GetX() + dude.GetWidth();
     const int bottom0 = dude.GetY() + dude.GetHeight();
     const int right1 = x + width;
@@ -56,6 +69,7 @@ void Poo::Processconsumption(const Dude &dude)//Const correctness(we are only re
 
 void Poo::Draw(Graphics &gfx) const
 {
+    assert(initialized == true);
     gfx.PutPixel(14 + x, 0 + y, 138, 77, 0);
     gfx.PutPixel(7 + x, 1 + y, 138, 77, 0);
     gfx.PutPixel(13 + x, 1 + y, 138, 77, 0);
@@ -292,6 +306,7 @@ void Poo::Draw(Graphics &gfx) const
 
 bool Poo::IsEaten() const
 {
+    assert(initialized == true);
 	return this->isEaten;
 }
 
