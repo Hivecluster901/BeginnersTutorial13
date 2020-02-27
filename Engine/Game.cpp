@@ -30,7 +30,8 @@ Game::Game(MainWindow& wnd) // constructor for Game class
     gfx(wnd),
     rng(rd()),
     xDist(0, 770),
-    yDist(0, 570)
+    yDist(0, 570),
+    goal(xDist(rng), yDist(rng))
     
 {// body of the constructor
     /*std::random_device rd;
@@ -68,7 +69,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    if (isStarted)
+    if (isStarted && !AtleastOneIsEaten)
     {
         dude.Update(wnd.kbd);
 
@@ -79,6 +80,7 @@ void Game::UpdateModel()
             poos[i].Update();
             poos[i].Processconsumption(dude);
         }
+        goal.ProcessConsumption(dude);
     }
     else
     {
@@ -28446,22 +28448,29 @@ void Game::ComposeFrame()
     }
     else
     {
-        bool allEaten = true;
         for (int i = 0; i < nPoo; i++)
         {
-            allEaten = allEaten && poos[i].IsEaten();
+            AtleastOneIsEaten = AtleastOneIsEaten || poos[i].IsEaten();
         }
-        if (allEaten)
+        if (AtleastOneIsEaten)
         {
             DrawGameOver(358, 268);
         }
+        meter.Draw(gfx);
+        if (!goal.IsEaten())
+        {
+            goal.Draw(gfx);
+        }
+        else
+        {
+            meter.MeterReading(goal);
+            goal.Init(xDist(rng), yDist(rng));
+        }
+
         dude.Draw(gfx);
         for (int i = 0; i < nPoo; i++)
         {
-            if (!poos[i].IsEaten())
-            {
                 poos[i].Draw(gfx);
-            }
         }
     }
 }

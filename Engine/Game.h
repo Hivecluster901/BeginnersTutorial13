@@ -25,6 +25,8 @@
 #include "Graphics.h"
 #include "Poo.h"
 #include "Dude.h"
+#include "Goal.h"
+#include "Meter.h"
 #include <random>
 
 class Game
@@ -55,7 +57,10 @@ private:
     Dude dude;
     static constexpr int nPoo = 10;
     Poo poos[nPoo];
+    Goal goal;
+    Meter meter;
     bool isStarted = false;
+    bool AtleastOneIsEaten = false;
     /*std::random_device rd; The random number generator should be declared before the poo objects.
     std::mt19937 rng;
     std::uniform_int_distribution<int> xDist;
